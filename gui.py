@@ -38,7 +38,7 @@ def page_main(page: ft.Page):
     if page.session.contains_key("updata_log"):
         page.session.remove("updata_log")
     '''
-    map_dict = map_word(platform=_("模拟器")).map_list_map
+    map_dict = map_word(platform=_("simulator")).map_list_map
     VER = str(read_json_file("config.json").get("star_version",0))+"/"+str(read_json_file("config.json").get("temp_version",0))+"/"+str(read_json_file("config.json").get("map_version",0))
     img_url = [
         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC",
@@ -47,8 +47,8 @@ def page_main(page: ft.Page):
     ]
     def add(*args,**kargs):
         """
-        说明:
-            页面提交元素的重写
+        illustrate:
+            Rewrite of the page submit element
         """
         if type(args[0]) != list:
             args = [i for i in args]
@@ -81,12 +81,12 @@ def page_main(page: ft.Page):
 
     def radiogroup_changed(e):
         """
-        说明:
-            改变地图选项卡的内容
-        参数:
-            :param word_select_rg.value 星球选择的编号
-            :param map_select_dd.options 所选星球的地图列表
-            :param map_select_dd.value 所选星球的地图默认值
+        illustrate:
+            Change the content of the map tab
+        parameter:
+            :param word_select_rg.value planet selection number
+            :param map_select_dd.options list of maps for the selected planet
+            :param map_select_dd.value The default map value of the selected planet
         """
         map_select_dd.options=[ft.dropdown.Option(i) for i in list(map_dict[word_select_rg.value].values())]
         map_select_dd.value = list(map_dict[word_select_rg.value].values())[0]
@@ -97,7 +97,7 @@ def page_main(page: ft.Page):
         说明；
             log在gui上输出
         """
-        page.title = _("星穹铁道小助手-{VER}").format(VER=VER)
+        page.title = _("Star Railway Assistant-{VER}").format(VER=VER)
         log_text.controls.append(ft.Text(message[:-1]))
         page.update()
 
@@ -125,17 +125,17 @@ def page_main(page: ft.Page):
         page.clean()
         page.add(
             log_text,
-            ft.ElevatedButton(_("返回"), on_click=send_log),
+            ft.ElevatedButton(_("Return"), on_click=send_log),
         )
 
     def map_confirm(e):
         """
         说明:
-            选择完地图开始跑图
+            选择完Map开始跑图
         参数:
             :param word_select_rg.value 星球选择的编号
-            :param map_select_dd.value 所选星球的地图编号
-            :param start: 开始地图编号
+            :param map_select_dd.value 所选星球的Map编号
+            :param start: 开始Map编号
         """
         keys = list(map_dict[word_select_rg.value].keys())
         values = list(map_dict[word_select_rg.value].values())
@@ -152,12 +152,12 @@ def page_main(page: ft.Page):
             get_width(_("崩坏：星穹铁道"))
             import pyautogui # 缩放纠正
         map_word(platform=platform.value).auto_map(start)
-        add(ft.ElevatedButton(_("返回"), on_click=to_page_main))
+        add(ft.ElevatedButton(_("Return"), on_click=to_page_main))
 
     def to_page_main(e):
         """
         说明:
-            返回主页
+            Return主页
         """
         updata_log = page.session.get("updata_log")
         if updata_log:
@@ -168,24 +168,24 @@ def page_main(page: ft.Page):
     def word(e):
         """
         说明:
-            地图选择界面
+            Map选择界面
         """
         page.clean()
         add(
-            ft.Text(_("星穹铁道小助手"), size=50),
-            ft.Text(_("大世界"), size=30),
+            ft.Text(_("Star Railway Assistant"), size=50),
+            ft.Text(_("Open World"), size=30),
             ft.Text(VER, size=20),
             word_select_rg,
             map_select_dd,
-            ft.ElevatedButton(_("确认"), on_click=map_confirm),
-            ft.ElevatedButton(_("返回"), on_click=to_page_main),
+            ft.ElevatedButton(_("Confirm"), on_click=map_confirm),
+            ft.ElevatedButton(_("Return"), on_click=to_page_main),
             left_page=[platform]
         )
 
     def updata(e):
         """
-        说明:
-            更新界面
+        illustrate:
+             update interface
         """
         pb.width = 100
         ghproxy = read_json_file(CONFIG_FILE_NAME, False).get('github_proxy', "")
@@ -193,7 +193,7 @@ def page_main(page: ft.Page):
         # asyncio.run(check_file(ghproxy, "map"))
         # asyncio.run(check_file(ghproxy, "temp"))
         data = {
-            _("脚本"):{
+            _("Screenplay"):{
                 'url_proxy': ghproxy,
                 'raw_proxy': rawghproxy,
                 'skip_verify': False,
@@ -204,9 +204,9 @@ def page_main(page: ft.Page):
                 'keep_folder': ['.git', 'logs', 'temp', 'map', 'tmp', 'venv'],
                 'keep_file': ['config.json', 'version.json', 'star_list.json', 'README_CHT.md', 'README.md'],
                 'zip_path': "StarRailAssistant-main/",
-                'name': _("脚本")
+                'name': _("Screenplay")
             },
-            _("地图"):{
+            _("Map"):{
                 'url_proxy': ghproxy,
                 'raw_proxy': rawghproxy,
                 'skip_verify': False,
@@ -217,9 +217,9 @@ def page_main(page: ft.Page):
                 'keep_folder': [],
                 'keep_file': [],
                 'zip_path': "map/",
-                'name': _("地图")
+                'name': _("Map")
             },
-            _("图片"):{
+            _("Picture"):{
                 'url_proxy': ghproxy,
                 'raw_proxy': rawghproxy,
                 'skip_verify': False,
@@ -230,7 +230,7 @@ def page_main(page: ft.Page):
                 'keep_folder': [],
                 'keep_file': [],
                 'zip_path': "map/",
-                'name': _("图片")
+                'name': _("Picture")
             },
         }
         def add_updata_log(message):
@@ -244,10 +244,10 @@ def page_main(page: ft.Page):
                     format="{message}")
             page.session.set("updata_log", updata_log)
             page.clean()
-            up_close = ft.ElevatedButton(_("返回"), disabled=True, on_click=to_page_main)
+            up_close = ft.ElevatedButton(_("Return"), disabled=True, on_click=to_page_main)
             add(
-                ft.Text(_("星穹铁道小助手"), size=50),
-                ft.Text(_("检查更新"), size=30),
+                ft.Text(_("Star Railway Assistant"), size=50),
+                ft.Text(_("Check for Updates"), size=30),
                 ft.Text(VER, size=20),
                 ft.Column([ text, pb]),
                 up_close
@@ -258,11 +258,11 @@ def page_main(page: ft.Page):
         Column.controls = [ft.ElevatedButton(i, on_click=up_data) for i in data]
         page.clean()
         add(
-            ft.Text(_("星穹铁道小助手"), size=50),
-            ft.Text(_("检查更新"), size=30),
+            ft.Text(_("Star Railway Assistant"), size=50),
+            ft.Text(_("Check for Updates"), size=30),
             ft.Text(VER, size=20),
             Column,
-            ft.ElevatedButton(_("返回"), on_click=to_page_main)
+            ft.ElevatedButton(_("Return"), on_click=to_page_main)
         )
 
     def set_config(e):
@@ -273,14 +273,14 @@ def page_main(page: ft.Page):
         config = read_json_file(CONFIG_FILE_NAME)
         simulator = {
             "逍遥游": "127.0.0.1:21503",
-            "夜神模拟器": "127.0.0.1:62001",
-            "海马玩模拟器": "127.0.0.1:26944",
-            "天天模拟器": "127.0.0.1:6555",
-            "雷电安卓模拟器": "127.0.0.1:5555",
-            "安卓模拟器大师": "127.0.0.1:54001",
-            "网易mumu模拟器": "127.0.0.1:7555",
+            "夜神simulator": "127.0.0.1:62001",
+            "海马玩simulator": "127.0.0.1:26944",
+            "天天simulator": "127.0.0.1:6555",
+            "雷电安卓simulator": "127.0.0.1:5555",
+            "安卓simulator大师": "127.0.0.1:54001",
+            "网易mumusimulator": "127.0.0.1:7555",
             "BlueStacks": "127.0.0.1:5555",
-            "天天安卓模拟器": "127.0.0.1:5037",
+            "天天安卓simulator": "127.0.0.1:5037",
         }
         github_proxy_list = ['https://ghproxy.com/', 'https://ghproxy.net/', 'hub.fgit.ml', '']
         rawgithub_proxy_list = ['https://ghproxy.com/', 'https://ghproxy.net/', 'raw.fgit.ml', 'raw.iqiq.io', '']
@@ -298,29 +298,29 @@ def page_main(page: ft.Page):
         level = config.get("level", "INFO")
         adb_path = config.get("adb_path", "temp\\adb\\adb")
         simulator_dd = ft.Dropdown(
-                label=_("模拟器"),
-                hint_text=_("选择你运行的模拟器"),
+                label=_("simulator"),
+                hint_text=_("选择你运行的simulator"),
                 options=[ft.dropdown.Option(i) for i in list(simulator.keys())],
                 value=adb,
                 width=200,
             )
         github_proxy_dd = ft.Dropdown(
-                label=_("GITHUB代理"),
-                hint_text=_("GITHUB代理地址"),
+                label=_("GitHub proxy"),
+                hint_text=_("GitHub proxy地址"),
                 options=[ft.dropdown.Option(i) for i in github_proxy_list],
                 value=github_proxy,
                 width=200,
             )
         rawgithub_proxy_dd = ft.Dropdown(
-                label=_("RAWGITHUB代理"),
-                hint_text=_("RAWGITHUB代理地址"),
+                label=_("RAWGITHUB Proxy"),
+                hint_text=_("RAWGITHUB Proxy地址"),
                 options=[ft.dropdown.Option(i) for i in rawgithub_proxy_list],
                 value=rawgithub_proxy,
                 width=200,
             )
         level_dd = ft.Dropdown(
-                label=_("日志等级"),
-                hint_text=_("日志等级"),
+                label=_("Log Level"),
+                hint_text=_("Log Level"),
                 options=[
                     ft.dropdown.Option("INFO"),
                     ft.dropdown.Option("DEBUG"),
@@ -334,7 +334,7 @@ def page_main(page: ft.Page):
             adb_path_text.value = e.files[0].path
             page.update()
         pick_files_dialog = ft.FilePicker(on_result=pick_files_result)
-        open_map_tf = ft.TextField(label=_("打开地图按钮"), value=open_map, width=200)
+        open_map_tf = ft.TextField(label=_("Open the Map button"), value=open_map, width=200)
         def save(e):
             modify_json_file(CONFIG_FILE_NAME, "github_proxy", github_proxy_dd.value)
             modify_json_file(CONFIG_FILE_NAME, "rawgithub_proxy", rawgithub_proxy_dd.value)
@@ -346,8 +346,8 @@ def page_main(page: ft.Page):
         page.clean()
         page.overlay.append(pick_files_dialog)
         add(
-            ft.Text(_("星穹铁道小助手"), size=50),
-            ft.Text(_("大世界"), size=30),
+            ft.Text(_("Star Railway Assistant"), size=50),
+            ft.Text(_("Open World"), size=30),
             ft.Text(VER, size=20),
             simulator_dd,
             github_proxy_dd,
@@ -358,7 +358,7 @@ def page_main(page: ft.Page):
                 [
                     adb_path_text,
                     ft.ElevatedButton(
-                        _("选择文件"),
+                        _("Select a document"),
                         icon=ft.icons.UPLOAD_FILE,
                         on_click=lambda _: pick_files_dialog.pick_files(
                             allowed_extensions=["exe"],
@@ -369,7 +369,7 @@ def page_main(page: ft.Page):
                 alignment=ft.MainAxisAlignment.CENTER,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER
             ),
-            ft.ElevatedButton(_("保存"), on_click=save),
+            ft.ElevatedButton(_("Save"), on_click=save),
         )
 
     def change__img(e):
@@ -391,7 +391,7 @@ def page_main(page: ft.Page):
         """
         page.clean()
         add(
-            ft.Text(_("星穹铁道小助手"), size=50),
+            ft.Text(_("Star Railway Assistant"), size=50),
             ft.Text(_("关于"), size=30),
             ft.Text(VER, size=20),
             ft.Text(get_mess(0), size=40, color=ft.colors.RED),
@@ -408,13 +408,13 @@ def page_main(page: ft.Page):
                     ),
                 ],
             ),
-            ft.ElevatedButton(_("返回"), on_click=to_page_main),
+            ft.ElevatedButton(_("Return"), on_click=to_page_main),
         )
 
     def on_window_event(e):
         """
-        说明:
-            当应用程序的本机操作系统窗口更改其状态时触发：位置、大小、最大化、最小化等。
+        illustrate:
+            Fired when the application's native OS window changes its state: position, size, maximized, minimized, etc.
         """
         if e.data in ["maximize","unmaximize"]:
             bg_img.width = page.window_width
@@ -431,7 +431,7 @@ def page_main(page: ft.Page):
     ## 更新选项卡
     Column = ft.Column()
     log_text = ft.Column()
-    # 背景图片
+    # 背景Picture
     if not page.session.get("start"):
         img_url2 = img_url[read_json_file(CONFIG_FILE_NAME).get("img",0)]
     elif page.session.get("img_v"):
@@ -453,14 +453,14 @@ def page_main(page: ft.Page):
                         icon=ft.icons.CHANGE_CIRCLE_OUTLINED,
                         icon_color="blue200",
                         icon_size=35,
-                        tooltip=_("切换背景"),
+                        tooltip=_("switch background"),
                         on_click=change__img
                     ),
                     ft.IconButton(
                         icon=ft.icons.INFO_OUTLINED,
                         icon_color="blue200",
                         icon_size=35,
-                        tooltip=_("关于"),
+                        tooltip=_("about"),
                         on_click=about
                     )
                 ],
@@ -475,7 +475,7 @@ def page_main(page: ft.Page):
         content=ft.Column(
             [
                 ft.Radio(value=_("PC"), label=_("PC")),
-                ft.Radio(value=_("模拟器"), label=_("模拟器"))
+                ft.Radio(value=_("simulator"), label=_("simulator")) #dieptt
             ],
             alignment=ft.MainAxisAlignment.END,
             spacing=0
@@ -487,25 +487,25 @@ def page_main(page: ft.Page):
         content=ft.Row(
             [
                 ft.Radio(value="1", label=_("空间站「黑塔」")),
-                ft.Radio(value="2", label=_("雅利洛-VI")),
-                ft.Radio(value="3", label=_("仙舟「罗浮」"))
+                ft.Radio(value="2", label=_("Jarlio-VI")),
+                ft.Radio(value="3", label=_("Loufu"))
             ],
             alignment=MainAxisAlignment.CENTER
         ),
         on_change=radiogroup_changed,
         value="1"
     )
-    ## 地图选项卡
+    ## Map选项卡
     map_select_dd = ft.Dropdown(
         width=100,
-        label=_("地图"),
-        hint_text=_("选择地图"),
+        label=_("Map"),
+        hint_text=_("Select Map"),
         options=[ft.dropdown.Option(i) for i in list(map_dict.get('1', {}).values())],
         value=list(map_dict.get('1', {"no":""}).values())[0]
     )
     # %%
     page.clean()
-    page.title = _("星穹铁道小助手")
+    page.title = _("Star Railway Assistant")
     page.scroll = "AUTO"
     page.theme = ft.Theme(font_family="Verdana")
     page.vertical_alignment = "center"
@@ -527,14 +527,14 @@ def page_main(page: ft.Page):
     button_dict = sra.run_plugins()[0]
     add(
         [
-            ft.Text(_("星穹铁道小助手"), size=50),
+            ft.Text(_("Star Railway Assistant"), size=50),
             ft.Text(VER, size=20),
-            ft.ElevatedButton(_("大世界"), on_click=word),
-            ft.ElevatedButton(_("模拟宇宙")),
+            ft.ElevatedButton(_("Open World"), on_click=word),
+            ft.ElevatedButton(_("simulated universe")),
         ]+[ft.ElevatedButton(i, on_click=lambda x:button_dict[i](page)) for i in list(button_dict.keys())]+
         [
-            ft.ElevatedButton(_("更新资源"), on_click=updata),
-            ft.ElevatedButton(_("编辑配置"), on_click=set_config),
+            ft.ElevatedButton(_("update resources"), on_click=updata),
+            ft.ElevatedButton(_("edit configuration"), on_click=set_config),
         ],
         left_page=[about_ib]
     )

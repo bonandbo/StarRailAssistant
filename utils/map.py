@@ -13,7 +13,7 @@ class Map:
         self.platform = platform # 运行设备
         platform2name = {
             _("PC"): "pc",
-            _("模拟器"): "mnq"
+            _("simulator"): "mnq"
         }
         self.platform_name = platform2name[platform]
         self.adb = ADB(order, adb_path)
