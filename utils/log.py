@@ -35,13 +35,13 @@ def normalize_file_path(filename):
         
 def read_json_file(filename: str, path=False):
     """
-    说明：
-        读取文件
-    参数：
-        :param filename: 文件名称
-        :param path: 是否返回路径
+    illustrate:
+         read file
+    parameter:
+        :param filename: file name
+        :param path: Whether to return the path
     """
-    # 找到文件的绝对路径
+    # Find the absolute path of the file
     file_path = normalize_file_path(filename)
     if file_path:
         with open(file_path, "rb") as f:
@@ -55,27 +55,34 @@ def read_json_file(filename: str, path=False):
     
 def get_folder(path) -> list[str]:
     """
-    获取文件夹下的文件夹列表
+    Get a list of folders under a folder
     """
     for root, dirs, files in os.walk(path):
         return dirs
 
 loc = locale.getdefaultlocale()
+print('dieptt-----')
+print(loc) # return tuple ('en_US', 'cp1252') with normal non chinese pc
 if loc[0] not in get_folder("locale"):
-    loc[0] = "zh_CN"
+    #dieptt
+    my_loc = list(loc)
+    my_loc[0] = "zh_CN"
+    loc = tuple(my_loc)
+    # loc[0] = "zh_CN"
 t = gettext.translation('sra', 'locale', languages=[loc[0]])
 _ = t.gettext
 
 def get_message(*arg):
     """
-    说明:
-        收集消息并返回
-    返回:
-        收集到的消息
+    illustrate:
+        collect messages and return
+    return:
+        collected messages
     """
     global message
     if arg:
         content = arg[0][:-1].replace("\x1b[0;34;40m","").replace("-1\x1b[0m","")
+        print("dieptt: content = " + content)
         if re.match(_(r'开始(.*)锄地'),content):
             message += f"\n{content}"
     return message
@@ -85,7 +92,7 @@ VER = str(data.get("star_version",0))+"/"+str(data.get("temp_version",0))+"/"+st
 level = data.get("level","INFO")
 log = logger
 dir_log = "logs"
-path_log = os.path.join(dir_log, _('日志文件.log'))
+path_log = os.path.join(dir_log, _('logfile.log'))
 logger.remove()
 logger.add(sys.stdout, level=level, colorize=True,
             format="<cyan>{module}</cyan>.<cyan>{function}</cyan>"

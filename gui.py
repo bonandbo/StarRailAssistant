@@ -29,7 +29,7 @@ try:
     from get_width import get_width
     from Honkai_Star_Rail import SRA
 except:
-    messagebox.showerror("运行错误", traceback.format_exc())
+    messagebox.showerror("run error", traceback.format_exc())
 
 sra = SRA()
 
@@ -546,6 +546,6 @@ except KeyboardInterrupt:
     ...
 except:
     log.error(traceback.format_exc())
-    messagebox.showerror("运行错误", traceback.format_exc())
+    messagebox.showerror("run error", traceback.format_exc())
 finally:
     sra.stop()

@@ -27,7 +27,7 @@ try:
 except:
     print(traceback.format_exc())
     os.system("pip install -r requirements.txt")
-    print("请重新运行")
+    print("Please rerun")
 
 game_title = _("崩坏：星穹铁道")
 plugins_path = "plugins"
