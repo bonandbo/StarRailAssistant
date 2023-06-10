@@ -11,4 +11,5 @@ Step:
 8. Again for picture
 9. Then teleport to Jalio-VI main map, near the middle ( where all the shop are )
 10. Run py Honkai_Star_rail.py
-11. Note that everything should run at main monitor if you have dual monitor 
+11. Choose all the first option ( you can do with the py gui but not really stable)
+12. Note that everything should run at main monitor if you have dual monitor 
